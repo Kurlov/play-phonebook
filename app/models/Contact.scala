@@ -40,8 +40,8 @@ object Contact {
 
   val phoneIsCorrect = Constraints.pattern(
     phoneFormat,
-    "constraint.phone",
-    "error.phone")
+    "Please, type correct phone number",
+    "Phone number is incorrect!")
 
   def findByPhone(phone: String): Option[Contact] = {
     DB.withConnection { implicit connection =>
