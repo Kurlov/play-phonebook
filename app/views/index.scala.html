@@ -1,0 +1,42 @@
+@(contacts: List[Contact])
+
+    @import helper._
+
+    @main("Phone Book") {
+        <div role="main" class="container">
+            <h1 class="page-header">Phone Book</h1>
+            <h2 class="sub-header">@contacts.size contact(s)</h2>
+
+            @form(routes.Application.contacts()) {
+                <input type="search" id="searchbox" name="filter" value="" placeholder="Type something...">
+                <input type="submit" class="btn btn-sm btn-primary" value="Search">
+            }
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @contacts.map { contact =>
+                        <tr>
+                            <td>@contact.name</td>
+                            <td>@contact.phone</td>
+
+                            @form(routes.Application.deleteContact(contact.id.get)) {
+                                <td><input type="submit" class="btn btn-sm btn-danger" value="Delete"></td>
+                                }
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+
+
+            <a class="btn btn-lb btn-success" href="@controllers.routes.Application.showContactForm()">Add</a>
+        </div>
+
+    }
